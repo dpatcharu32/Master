@@ -1,0 +1,17 @@
+// JavaScript with WebSocket (server implementation required)
+const socket = new WebSocket('ws://localhost:3000');
+
+socket.addEventListener('open', () => {
+    // Handle connection establishment
+});
+
+socket.addEventListener('message', (event) => {
+    const message = event.data;
+    // Display the received message in the chat interface
+});
+
+document.getElementById('sendButton').addEventListener('click', () => {
+    const message = document.getElementById('messageInput').value;
+    socket.send(message);
+    // Clear the input field or handle sending logic
+});
