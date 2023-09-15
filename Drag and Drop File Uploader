@@ -1,0 +1,26 @@
+// JavaScript
+const dropZone = document.getElementById('dropZone');
+
+dropZone.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', function () {
+    dropZone.classList.remove('drag-over');
+});
+
+dropZone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const files = e.dataTransfer.files;
+    handleFiles(files);
+});
+
+function handleFiles(files) {
+    for (const file of files) {
+        const fileName = file.name;
+        // Handle the file (e.g., upload it to a server)
+        console.log(`Uploaded file: ${fileName}`);
+    }
+}
