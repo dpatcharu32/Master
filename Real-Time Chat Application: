@@ -1,0 +1,20 @@
+// JavaScript with Firebase Realtime Database
+const database = firebase.database();
+const chatInput = document.getElementById('chatInput');
+const chatDisplay = document.getElementById('chatDisplay');
+
+document.getElementById('sendMessageButton').addEventListener('click', function() {
+    const message = chatInput.value;
+    const timestamp = new Date().toISOString();
+    const chatMessage = { message, timestamp };
+
+    database.ref('chat').push(chatMessage);
+    chatInput.value = '';
+});
+
+database.ref('chat').on('child_added', snapshot => {
+    const chatMessage = snapshot.val();
+    const messageElement = document.createElement('div');
+    messageElement.textContent = `${chatMessage.timestamp}: ${chatMessage.message}`;
+    chatDisplay.appendChild(messageElement);
+});
