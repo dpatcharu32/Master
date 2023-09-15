@@ -1,0 +1,26 @@
+// JavaScript with Ionic Framework
+// (Set up an Ionic project and install necessary dependencies)
+
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+    selector: 'app-weather',
+    templateUrl: 'weather.page.html',
+    styleUrls: ['weather.page.scss'],
+})
+export class WeatherPage {
+    location = '';
+    weatherData: any = {};
+
+    constructor(private http: HttpClient) {}
+
+    getWeather() {
+        const apiKey = 'YOUR_API_KEY';
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${this.location}&appid=${apiKey}`;
+
+        this.http.get(apiUrl).subscribe((data: any) => {
+            this.weatherData = data;
+        });
+    }
+}
