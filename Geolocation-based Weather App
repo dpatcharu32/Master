@@ -1,0 +1,19 @@
+// JavaScript
+const weatherDisplay = document.getElementById('weatherDisplay');
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=YOUR_API_KEY`)
+            .then(response => response.json())
+            .then(data => {
+                const temperature = data.main.temp;
+                const description = data.weather[0].description;
+                weatherDisplay.textContent = `Temperature: ${temperature}°C, Description: ${description}`;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+} else {
+    console.error('Geolocation is not supported by this browser.');
+}
