@@ -1,0 +1,22 @@
+// NativeScript with Ionic components
+// (Set up a NativeScript project and install the 'nativescript-ionic-webview' plugin)
+
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
+import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
+import { AppComponent } from './app.component';
+
+@NgModule({
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    imports: [
+        NativeScriptModule,
+        NativeScriptRouterModule,
+        NativeScriptUIListViewModule,
+        NativeScriptUISideDrawerModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
+export class AppModule {}
