@@ -1,0 +1,189 @@
+1. Set Up the Project:
+
+Create a new Ionic Angular project using the Ionic CLI:
+
+bash
+
+ionic start restaurantFinder blank --type=angular
+cd restaurantFinder
+
+2. Create Restaurant Service:
+
+Create a service to manage restaurant data. Generate a service using the following command:
+
+bash
+
+ionic generate service services/restaurant
+Edit src/app/services/restaurant.service.ts to fetch mock restaurant data:
+
+typescript
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class RestaurantService {
+  private restaurants: any[] = [
+    {
+      id: 1,
+      name: 'Restaurant A',
+      cuisine: 'Italian',
+      distance: '0.5 miles',
+      rating: 4.5,
+    },
+    {
+      id: 2,
+      name: 'Restaurant B',
+      cuisine: 'Mexican',
+      distance: '0.8 miles',
+      rating: 4.2,
+    },
+    // Add more mock data
+  ];
+
+  constructor() {}
+
+  getRestaurants() {
+    return this.restaurants;
+  }
+
+  getRestaurantById(id: number) {
+    return this.restaurants.find((restaurant) => restaurant.id === id);
+  }
+}
+3. Create Restaurant Listings:
+
+Edit src/app/home/home.page.html to display restaurant listings:
+
+html
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Restaurant Finder
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let restaurant of restaurants" (click)="showRestaurantDetails(restaurant.id)">
+      <ion-label>
+        <h2>{{ restaurant.name }}</h2>
+        <p>Cuisine: {{ restaurant.cuisine }}</p>
+        <p>Distance: {{ restaurant.distance }}</p>
+        <ion-badge color="primary">{{ restaurant.rating }}</ion-badge>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+Edit src/app/home/home.page.ts to fetch restaurant data and handle navigation to the details page:
+
+typescript
+
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { RestaurantService } from '../services/restaurant.service';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+})
+export class HomePage {
+  restaurants: any[];
+
+  constructor(private restaurantService: RestaurantService, private router: Router) {}
+
+  ionViewWillEnter() {
+    this.restaurants = this.restaurantService.getRestaurants();
+  }
+
+  showRestaurantDetails(restaurantId: number) {
+    this.router.navigate(['restaurant', restaurantId]);
+  }
+}
+4. Create Restaurant Details Page:
+
+Generate a new page for restaurant details:
+
+bash
+
+ionic generate page restaurant-details
+Edit src/app/restaurant-details/restaurant-details.page.html to display restaurant details:
+
+html
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ restaurant.name }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      {{ restaurant.cuisine }}
+    </ion-card-header>
+    <ion-card-content>
+      <p>Distance: {{ restaurant.distance }}</p>
+      <p>Rating: {{ restaurant.rating }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+Edit src/app/restaurant-details/restaurant-details.page.ts to fetch restaurant data:
+
+typescript
+
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RestaurantService } from '../services/restaurant.service';
+
+@Component({
+  selector: 'app-restaurant-details',
+  templateUrl: './restaurant-details.page.html',
+  styleUrls: ['./restaurant-details.page.scss'],
+})
+export class RestaurantDetailsPage {
+  restaurant: any;
+
+  constructor(private activatedRoute: ActivatedRoute, private restaurantService: RestaurantService) {}
+
+  ionViewWillEnter() {
+    const restaurantId = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.restaurant = this.restaurantService.getRestaurantById(restaurantId);
+  }
+}
+5. Set Up Routing:
+
+Edit src/app/app-routing.module.ts to define routes:
+
+typescript
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomePage } from './home/home.page';
+import { RestaurantDetailsPage } from './restaurant-details/restaurant-details.page';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomePage },
+  { path: 'restaurant/:id', component: RestaurantDetailsPage },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+6. Run the App:
+
+Run the app using the following command:
+
+bash
+
+ionic serve
+You can access the app in your web browser at http://localhost:8100.
