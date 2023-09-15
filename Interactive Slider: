@@ -1,0 +1,12 @@
+// HTML
+<img id="slider" src="image1.jpg">
+
+// JavaScript
+const slider = document.getElementById('slider');
+const images = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+let currentIndex = 0;
+
+setInterval(function() {
+    currentIndex = (currentIndex + 1) % images.length;
+    slider.src = images[currentIndex];
+}, 3000);
