@@ -1,0 +1,51 @@
+// JavaScript
+const questions = [
+    {
+        question: 'What is the capital of France?',
+        options: ['London', 'Madrid', 'Paris', 'Berlin'],
+        correctAnswer: 2,
+    },
+    {
+        question: 'Which planet is known as the Red Planet?',
+        options: ['Earth', 'Mars', 'Jupiter', 'Venus'],
+        correctAnswer: 1,
+    },
+    // Add more questions
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+function displayQuestion() {
+    const questionObj = questions[currentQuestionIndex];
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options');
+
+    questionElement.textContent = questionObj.question;
+    optionsElement.innerHTML = '';
+
+    questionObj.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.addEventListener('click', () => checkAnswer(index));
+        optionsElement.appendChild(button);
+    });
+}
+
+function checkAnswer(selectedIndex) {
+    const questionObj = questions[currentQuestionIndex];
+    if (selectedIndex === questionObj.correctAnswer) {
+        score++;
+    }
+
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+    } else {
+        // Display the final score
+        alert(`Quiz complete! Your score: ${score}/${questions.length}`);
+    }
+}
+
+// Start the quiz
+displayQuestion();
