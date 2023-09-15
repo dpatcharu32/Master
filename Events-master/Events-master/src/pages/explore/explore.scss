@@ -1,0 +1,44 @@
+page-explore {
+  ion-list {
+    margin-bottom: 10px !important;
+  }
+  .bg-light {
+    background: $light;
+  }
+  .card-item {
+    margin-top: -14px;
+  }
+  .explore-slides {
+    width: 100vw;
+    padding: 0;
+    height: 220px;
+
+    ion-slide {
+
+      .explore-card {
+        position: relative;
+        left: -8px;
+        width: calc(100% - 30px);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+
+        img {
+          height: 150px;
+          width: 100%;
+        }
+        h4 {
+          font-weight: 700;
+        }
+      }
+      .explore-image{
+        width: calc(100% - 30px);
+        background-color: #000;
+      }
+      .explore-content {
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+    }	
+  }
+}

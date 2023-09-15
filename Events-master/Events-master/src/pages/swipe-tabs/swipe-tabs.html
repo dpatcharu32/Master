@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar no-margin no-padding>
+    <ion-toolbar color="primary">
+      <ion-title left>
+        <img class="logo" src="assets/icon/icon-white.png">
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only color="light">
+        <ion-icon name="search"></ion-icon>
+      </button>
+        <button ion-button icon-only color="light">
+        <ion-icon name="pin"></ion-icon>
+      </button>
+        <button ion-button icon-only color="light">
+        <ion-icon name="more"></ion-icon>
+      </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-navbar>
+
+  <ion-navbar color="dark">
+    <ion-segment color="dark" [(ngModel)]="tabs">
+      <ion-segment-button class="text-color-light" (click)="selectTab(0)" value="0">
+        FEED
+      </ion-segment-button>
+      <ion-segment-button class="text-color-light" (click)="selectTab(1)" value="1">
+        EXPLORE
+      </ion-segment-button>
+      <ion-segment-button class="text-color-light" (click)="selectTab(2)" value="2">
+        ME
+      </ion-segment-button>
+      <div id="slide" class="slide"></div>
+    </ion-segment>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-slides #pageSlider (ionSlideWillChange)="changeWillSlide($event)">
+    <ion-slide>
+      <page-feed class="tabed-page"></page-feed>
+    </ion-slide>
+    <ion-slide>
+      <page-explore class="tabed-page"></page-explore>
+    </ion-slide>
+    <ion-slide>
+      <page-me class="tabed-page"></page-me>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

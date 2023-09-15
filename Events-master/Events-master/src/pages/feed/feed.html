@@ -1,0 +1,14 @@
+<ion-content no-margin>
+<ion-list>
+  <ion-list-header>
+    Popular Events In New York
+  </ion-list-header>
+  <button ion-item text-wrap *ngFor="let event of events" >
+    <ion-thumbnail item-left>
+      <img src="{{ event.thumbnail }}">
+    </ion-thumbnail>
+    <h2>{{ event.title }}</h2>
+    <p> {{ event.timestart }}</p>
+  </button>
+</ion-list>
+</ion-content>
