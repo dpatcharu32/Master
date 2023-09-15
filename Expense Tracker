@@ -1,0 +1,12 @@
+// JavaScript
+const expenses = [];
+
+document.getElementById('addExpenseButton').addEventListener('click', () => {
+    const expenseName = document.getElementById('expenseName').value;
+    const expenseAmount = parseFloat(document.getElementById('expenseAmount').value);
+    const expenseCategory = document.getElementById('expenseCategory').value;
+
+    expenses.push({ name: expenseName, amount: expenseAmount, category: expenseCategory });
+
+    // Update the UI to display the list of expenses
+});
