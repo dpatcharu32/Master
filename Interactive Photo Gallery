@@ -1,0 +1,26 @@
+// JavaScript
+const images = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+let currentImageIndex = 0;
+
+const previousButton = document.getElementById('previousButton');
+const nextButton = document.getElementById('nextButton');
+const imageView = document.getElementById('imageView');
+
+function updateImageView() {
+    const currentImage = images[currentImageIndex];
+    imageView.src = currentImage;
+}
+
+previousButton.addEventListener('click', () => {
+    if (currentImageIndex > 0) {
+        currentImageIndex--;
+        updateImageView();
+    }
+});
+
+nextButton.addEventListener('click', () => {
+    if (currentImageIndex < images.length - 1) {
+        currentImageIndex++;
+        updateImageView();
+    }
+});
