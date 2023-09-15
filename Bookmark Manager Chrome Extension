@@ -1,0 +1,4 @@
+// JavaScript for a Chrome Extension (manifest.json required)
+chrome.bookmarks.getTree((bookmarks) => {
+    // Handle the bookmarks data and display it in a user-friendly way
+});
