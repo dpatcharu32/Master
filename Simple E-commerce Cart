@@ -1,0 +1,25 @@
+// JavaScript
+const cart = [];
+const addToCartButton = document.getElementById('addToCart');
+const cartDisplay = document.getElementById('cartDisplay');
+
+addToCartButton.addEventListener('click', function () {
+    const itemName = 'Product Name'; // Replace with actual product name
+    const itemPrice = 19.99; // Replace with actual product price
+    cart.push({ name: itemName, price: itemPrice });
+    updateCartDisplay();
+});
+
+function updateCartDisplay() {
+    cartDisplay.innerHTML = '';
+    let total = 0;
+    for (const item of cart) {
+        const itemElement = document.createElement('div');
+        itemElement.textContent = `${item.name} - $${item.price}`;
+        cartDisplay.appendChild(itemElement);
+        total += item.price;
+    }
+    const totalElement = document.createElement('div');
+    totalElement.textContent = `Total: $${total.toFixed(2)}`;
+    cartDisplay.appendChild(totalElement);
+}
