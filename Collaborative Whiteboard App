@@ -1,0 +1,38 @@
+// JavaScript with WebSocket (server implementation required)
+const canvas = document.getElementById('whiteboard');
+const ctx = canvas.getContext('2d');
+let isDrawing = false;
+
+// WebSocket connection setup
+const socket = new WebSocket('ws://localhost:3000');
+
+socket.addEventListener('message', function (event) {
+    // Handle incoming drawing data and draw on the canvas
+    const data = JSON.parse(event.data);
+    // Implement logic to draw on the canvas
+});
+
+canvas.addEventListener('mousedown', () => {
+    isDrawing = true;
+});
+
+canvas.addEventListener('mouseup', () => {
+    isDrawing = false;
+    ctx.beginPath();
+});
+
+canvas.addEventListener('mousemove', draw);
+
+function draw(event) {
+    if (!isDrawing) return;
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'black';
+    ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+
+    // Send drawing data to the server via WebSocket
+    socket.send(JSON.stringify({ x: event.clientX, y: event.clientY }));
+}
