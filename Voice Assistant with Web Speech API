@@ -1,0 +1,12 @@
+// JavaScript with Web Speech API
+const recognition = new webkitSpeechRecognition();
+recognition.onresult = function (event) {
+    const result = event.results[0][0].transcript;
+    const output = document.getElementById('output');
+    output.textContent = result;
+    // Implement logic to respond to voice commands here
+};
+
+document.getElementById('startButton').addEventListener('click', function () {
+    recognition.start();
+});
